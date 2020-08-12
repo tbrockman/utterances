@@ -51,6 +51,7 @@ function readPageAttributes() {
     repo: matches[2],
     issueTerm,
     issueNumber,
+    autocreate: params.autocreate,
     origin: params.origin,
     url: params.url,
     title: params.title,

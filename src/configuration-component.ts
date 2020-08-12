@@ -201,7 +201,8 @@ export class ConfigurationComponent {
       mappingAttr + '\n' +
       (this.label.value ? this.makeConfigScriptAttribute('label', this.label.value) + '\n' : '') +
       this.makeConfigScriptAttribute('theme', this.theme.value) + '\n' +
-      this.makeConfigScriptAttribute('crossorigin', 'anonymous'));
+      this.makeConfigScriptAttribute('crossorigin', 'anonymous') + '\n' +
+      this.makeConfigScriptAttribute('autocreate', 'true'));
   }
 
   private makeConfigScriptAttribute(name: string, value: string) {

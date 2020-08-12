@@ -52,6 +52,18 @@ async function bootstrap() {
     return;
   }
 
+  if (!issue && page.autocreate) {
+    await assertOrigin();
+    issue = await createIssue(
+      page.issueTerm as string,
+      page.url,
+      page.title,
+      page.description || '',
+      page.label
+    );
+    timeline.setIssue(issue);
+  }
+
   enableReactions(!!user);
 
   const submit = async (markdown: string) => {
