@@ -2,7 +2,6 @@ import { pageAttributes as page } from './page-attributes';
 import { User, renderMarkdown } from './github';
 import { scheduleMeasure } from './measure';
 import { processRenderedMarkdown } from './comment-component';
-import { getRepoConfig } from './repo-config';
 import { getLoginUrl } from './oauth';
 
 // tslint:disable-next-line:max-line-length
@@ -115,7 +114,6 @@ export class NewCommentComponent {
   }
 
   private handleInput = () => {
-    getRepoConfig(); // preload repo config
     const text = this.textarea.value;
     const isWhitespace = /^\s*$/.test(text);
     this.submitButton.disabled = isWhitespace;

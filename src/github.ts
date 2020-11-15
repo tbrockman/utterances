@@ -1,6 +1,5 @@
 import { token } from './oauth';
 import { decodeBase64UTF8 } from './encoding';
-import { UTTERANCES_API } from './utterances-api';
 
 const GITHUB_API = 'https://api.github.com/';
 const GITHUB_ENCODING__HTML_JSON = 'application/vnd.github.VERSION.html+json';
@@ -199,25 +198,6 @@ export function loadUser(): Promise<User | null> {
     });
 }
 
-export function createIssue(issueTerm: string, documentUrl: string, title: string, description: string, label: string) {
-  const url = `${UTTERANCES_API}/repos/${owner}/${repo}/issues${label ? `?label=${encodeURIComponent(label)}` : ''}`;
-  const request = new Request(url, {
-    method: 'POST',
-    body: JSON.stringify({
-      title: issueTerm,
-      body: `# ${title}\n\n${description}\n\n[${documentUrl}](${documentUrl})`
-    })
-  });
-  request.headers.set('Accept', GITHUB_ENCODING__REACTIONS_PREVIEW);
-  request.headers.set('Authorization', `token ${token.value}`);
-  return fetch(request).then<Issue>(response => {
-    if (!response.ok) {
-      throw new Error('Error creating comments container issue');
-    }
-    return response.json();
-  });
-}
-
 export function postComment(issueNumber: number, markdown: string) {
   const url = `repos/${owner}/${repo}/issues/${issueNumber}/comments`;
   const body = JSON.stringify({ body: markdown });
@@ -385,7 +365,7 @@ query IssueComments($owner: String!, $repo: String!, $issueQuery: String!) {
           id
           title,
           comments(first: 100) {
-          	totalCount
+            totalCount
             edges {
               node {
                 id,
